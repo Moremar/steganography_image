@@ -1,2 +1,5 @@
 # Pycharm config files
 .idea/
+
+# cache created by Python interpreter
+__pycache__/
