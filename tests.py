@@ -1,43 +1,43 @@
 import unittest
 import os
-import stenography_image as steno
+import steganography_image as stegano
 
 
 class MyTestCase(unittest.TestCase):
 
     def test_byte_to_fragments(self):
         # 8 bits per byte used for encoding (fragments between 0 and 255)
-        self.assertEqual(steno.byte_to_fragments(4, 8), [4])
-        self.assertEqual(steno.byte_to_fragments(252, 8), [252])
+        self.assertEqual(stegano.byte_to_fragments(4, 8), [4])
+        self.assertEqual(stegano.byte_to_fragments(252, 8), [252])
         # 4 bits per byte used for encoding (fragments between 0 and 15)
-        self.assertEqual(steno.byte_to_fragments(4, 4), [0, 4])
-        self.assertEqual(steno.byte_to_fragments(252, 4), [15, 12])
+        self.assertEqual(stegano.byte_to_fragments(4, 4), [0, 4])
+        self.assertEqual(stegano.byte_to_fragments(252, 4), [15, 12])
         # 2 bits per byte used for encoding (fragments between 0 and 3)
-        self.assertEqual(steno.byte_to_fragments(4, 2), [0, 0, 1, 0])
-        self.assertEqual(steno.byte_to_fragments(252, 2), [3, 3, 3, 0])
+        self.assertEqual(stegano.byte_to_fragments(4, 2), [0, 0, 1, 0])
+        self.assertEqual(stegano.byte_to_fragments(252, 2), [3, 3, 3, 0])
         # 1 bit per byte used for encoding (fragments between 0 and 1)
-        self.assertEqual(steno.byte_to_fragments(4, 1), [0, 0, 0, 0, 0, 1, 0, 0])
-        self.assertEqual(steno.byte_to_fragments(252, 1), [1, 1, 1, 1, 1, 1, 0, 0])
+        self.assertEqual(stegano.byte_to_fragments(4, 1), [0, 0, 0, 0, 0, 1, 0, 0])
+        self.assertEqual(stegano.byte_to_fragments(252, 1), [1, 1, 1, 1, 1, 1, 0, 0])
 
     def test_fragments_to_byte(self):
         # 8 bits per byte used for encoding (fragments between 0 and 255)
-        self.assertEqual(steno.fragments_to_byte([4], 8), 4)
-        self.assertEqual(steno.fragments_to_byte([252], 8), 252)
+        self.assertEqual(stegano.fragments_to_byte([4], 8), 4)
+        self.assertEqual(stegano.fragments_to_byte([252], 8), 252)
         # 4 bits per byte used for encoding (fragments between 0 and 15)
-        self.assertEqual(steno.fragments_to_byte([0, 4], 4), 4)
-        self.assertEqual(steno.fragments_to_byte([15, 12], 4), 252)
+        self.assertEqual(stegano.fragments_to_byte([0, 4], 4), 4)
+        self.assertEqual(stegano.fragments_to_byte([15, 12], 4), 252)
         # 2 bits per byte used for encoding (fragments between 0 and 3)
-        self.assertEqual(steno.fragments_to_byte([0, 0, 1, 0], 2), 4)
-        self.assertEqual(steno.fragments_to_byte([3, 3, 3, 0], 2), 252)
+        self.assertEqual(stegano.fragments_to_byte([0, 0, 1, 0], 2), 4)
+        self.assertEqual(stegano.fragments_to_byte([3, 3, 3, 0], 2), 252)
         # 1 bit per byte used for encoding (fragments between 0 and 1)
-        self.assertEqual(steno.fragments_to_byte([0, 0, 0, 0, 0, 1, 0, 0], 1), 4)
-        self.assertEqual(steno.fragments_to_byte([1, 1, 1, 1, 1, 1, 0, 0], 1), 252)
+        self.assertEqual(stegano.fragments_to_byte([0, 0, 0, 0, 0, 1, 0, 0], 1), 4)
+        self.assertEqual(stegano.fragments_to_byte([1, 1, 1, 1, 1, 1, 0, 0], 1), 252)
 
     def test_get_header_bytes(self):
         # the header contains the size encoded on 4 bytes
-        self.assertEqual(steno.get_header_bytes(4), [0, 0, 0, 4])
-        self.assertEqual(steno.get_header_bytes(256 * 255), [0, 0, 255, 0])
-        self.assertEqual(steno.get_header_bytes(256 * 256 * 256 * 3 + 2), [3, 0, 0, 2])
+        self.assertEqual(stegano.get_header_bytes(4), [0, 0, 0, 4])
+        self.assertEqual(stegano.get_header_bytes(256 * 255), [0, 0, 255, 0])
+        self.assertEqual(stegano.get_header_bytes(256 * 256 * 256 * 3 + 2), [3, 0, 0, 2])
 
     def test_encode_decode(self):
         message_url = 'test_data/grimm_fairy_tales.txt'
@@ -46,9 +46,9 @@ class MyTestCase(unittest.TestCase):
         decoded_message_url = 'test_data/decoded_message.txt'
         bits_per_byte = 4
         # encode the message in an image
-        steno.encode_message(message_url, bits_per_byte, image_url, encoded_image_url)
+        stegano.encode_message(message_url, bits_per_byte, image_url, encoded_image_url)
         # decode the message from that image
-        steno.decode_message(bits_per_byte, encoded_image_url, decoded_message_url)
+        stegano.decode_message(bits_per_byte, encoded_image_url, decoded_message_url)
         # ensure the initial original message and the decoded message are equal
         with open(message_url, 'r') as f1:
             initial_message = f1.read()

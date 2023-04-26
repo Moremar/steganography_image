@@ -1,16 +1,16 @@
-# Stenography : hiding a message inside an image
+# Steganography : hiding a message inside an image
 
 
-## Stenography VS Cryptography
+## Steganography VS Cryptography
 
-Stenography is the art of hiding information inside another message, so that the existence of the information inside that message is not detected by humans intercepting the message.
+Steganography is the art of hiding information inside another message, so that the existence of the information inside that message is not detected by humans intercepting the message.
 
 It is different from cryptography, where the information is not hidden, but encrypted in such a way that only someone with the encryption key could decrypt it.
 
 
-## Stenography inside an image
+## Steganography inside an image
 
-This script uses stenography to hide a message inside a PNG image by modifying the RGB values of each pixel to add a part of the secret message.
+This script uses steganography to hide a message inside a PNG image by modifying the RGB values of each pixel to add a part of the secret message.
 
 Each pixel in a PNG image is defined by 3 bytes : one for the red, one for the green and one for the blue bands.  
 Some PNG images have a 4th byte for transparency, but this script only uses RGB images with no transparency band.    
@@ -38,7 +38,7 @@ To encode a secret message inside an image, use the following parameters :
 
 Example :
 ```commandline
-python3 ./stenography_image.py -a encode -m test_data/grimm_fairy_tales.txt -i test_data/cat.png -b 4 -o test_data/cat_encoded_4.png
+python3 ./steganography_image.py -a encode -m test_data/grimm_fairy_tales.txt -i test_data/cat.png -b 4 -o test_data/cat_encoded_4.png
 ```
 
 ### Decoding a message
@@ -51,7 +51,7 @@ To decode a secret message from an image, use the following parameters :
 
 Example :
 ```commandline
-python3 ./stenography_image.py -a decode -i test_data/cat_encoded_4.png -b 4 -o test_data/decoded_message.txt
+python3 ./steganography_image.py -a decode -i test_data/cat_encoded_4.png -b 4 -o test_data/decoded_message.txt
 ```
 
 ## Image quality 

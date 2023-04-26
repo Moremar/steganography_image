@@ -189,7 +189,7 @@ def decode_message(bits_per_byte, image_url, output_url):
 
 def parse_arguments():
     # define parser
-    arg_parser = argparse.ArgumentParser(prog='ImageStenography')
+    arg_parser = argparse.ArgumentParser(prog='ImageSteganography')
     arg_parser.add_argument('-a', '--action', type=str, choices=['encode', 'decode'],
                             help='encode or decode')
     arg_parser.add_argument('-m', '--message', type=str,
